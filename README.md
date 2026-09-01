@@ -86,6 +86,32 @@ The UI is a persistent application shell. Opening Timeline, Crew, Character, Mem
 
 ## Status
 
-**Pre-alpha / architecture phase**
+**Pre-alpha / Issue #1 vertical slice**
 
-The first milestone is the responsive reactive application shell and design system. RP engine features are added only after that foundation is stable.
+The repository now includes a runnable SvelteKit + TypeScript Character and Persona Factory workbench with:
+
+- the canonical Landing and Analog visual system
+- Quick and Advanced authoring modes
+- a semantic local working model
+- reactive personality axes and trait intensity
+- deterministic seeded randomization with field locks
+- live interpretation and completeness diagnostics
+- local browser checkpoints
+- desktop, tablet and phone recomposition down to 320px
+
+The Go and PostgreSQL persistence layer remains intentionally deferred to Issue #2.
+
+## Frontend development
+
+```bash
+npm install
+npm run dev
+```
+
+Validation commands:
+
+```bash
+npm run check
+npm test
+npm run build
+```
