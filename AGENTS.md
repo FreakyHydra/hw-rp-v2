@@ -29,25 +29,52 @@ This includes:
 
 If a placeholder is required, create a neutral V2 placeholder using CSS, SVG made specifically for V2, or simple generated development data.
 
-Never silently pull assets from another Howling Whispers repository.
+Never silently pull legacy Sandbox or character assets from another Howling Whispers repository.
 
-### 2. Landing-compatible, freshly implemented theme
+### 2. Landing and Analog are the canonical shared theme
 
-V2 must visually belong to the same ecosystem as HW Landing while using its own implementation.
+RP V2 must use the **same theme and style** as the current Howling Whispers Landing and Howling Whispers Analog pages.
 
-Design language:
+Do not interpret this as merely "inspired by" those applications.
 
-- near-black background
-- warm copper / bronze highlights
+Before implementing or substantially redesigning UI, inspect the current `dev` branches of:
+
+- `FreakyHydra/HW-Landing`
+  - `src/styles/base.css`
+  - `src/styles/world.css`
+  - related current UI source
+- `FreakyHydra/Howling-Whispers-Analog`
+  - `src/style.css`
+  - `src/daw/style.css`
+  - `src/daw/controls.css`
+  - related current UI source
+
+Landing, Analog, RP V2, Character Factory, Persona Factory and future V2 pages are one visual ecosystem.
+
+It is acceptable and encouraged to reuse/port shared Howling Whispers design tokens and styling patterns from Landing and Analog where appropriate. The clean-room ban is about old Sandbox and old character assets, not the current ecosystem design system.
+
+Canonical characteristics include:
+
+- near-black warm background
+- copper/bronze highlight family
 - restrained ivory text
-- celestial geometry used sparingly
-- analog broadcast-console / instrument-panel influence
-- dark physical panels with subtle depth
-- small status lamps, meters, switches and knobs only when they communicate real state
+- Georgia/serif display identity paired with readable sans-serif UI text
+- tracked uppercase micro-labels
+- subtle celestial/star-field atmosphere
+- warm dark instrument panels
+- fine copper borders and dividers
+- inset/highlight material depth
+- Analog-style physical sliders and control treatments
+- status lamps and meters when they communicate real state
+- tactile immediate motion
+
+Do not invent a separate RP V2 palette or generic component-library look.
 
 Do not make the application look like a generic SaaS dashboard.
 
-Do not make it look like a novelty fake radio either. Readability and usability come first.
+Do not turn it into novelty fake-radio decoration. Use the established Analog physical-control language where it suits the function and keep RP text readable.
+
+If a UI change makes V2 look unrelated to Landing or Analog, treat that as a regression unless the whole ecosystem theme is intentionally being changed.
 
 ### 3. Mobile and tablet are first-class
 
@@ -178,7 +205,7 @@ Build vertical slices that remain runnable.
 
 Preferred early sequence:
 
-1. application shell + design tokens
+1. application shell + canonical shared theme
 2. responsive layout system
 3. local reactive state model
 4. backend health/config/bootstrap
@@ -195,6 +222,7 @@ A feature is not done merely because it works on desktop.
 
 Before marking it complete, verify:
 
+- visual consistency with current Landing and Analog
 - desktop
 - tablet
 - phone
@@ -203,4 +231,4 @@ Before marking it complete, verify:
 - reduced motion where relevant
 - loading/error/reconnect state
 - no accidental full-page reload
-- no legacy asset dependency
+- no legacy Sandbox/character asset dependency
