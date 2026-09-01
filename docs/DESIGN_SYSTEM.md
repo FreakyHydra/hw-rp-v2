@@ -1,20 +1,66 @@
 # HW RP V2 Design System
 
-## Design intent
+## Canonical shared theme
 
-RP V2 should feel like the operational interior of the same world presented by HW Landing.
+RP V2 must use the **same Howling Whispers theme and visual style** as the current HW Landing and Howling Whispers Analog pages.
+
+This is not merely inspiration, resemblance, or a loose visual family.
+
+The intended result is that Landing, Analog, RP V2, Character Factory, Persona Factory, Timeline, Relationship, Memory, Live Crew and later V2 applications all look like parts of one unified Howling Whispers product.
+
+The canonical visual references are:
+
+- `FreakyHydra/HW-Landing`, `dev` branch
+  - `src/styles/base.css`
+  - `src/styles/world.css`
+  - related current Landing UI source
+- `FreakyHydra/Howling-Whispers-Analog`, `dev` branch
+  - `src/style.css`
+  - `src/daw/style.css`
+  - `src/daw/controls.css`
+  - related current Analog UI source
+
+Before implementing or substantially redesigning RP V2 UI, inspect the current versions of those references.
 
 Landing is the front gate.
 
-RP V2 is the control room behind it.
+Analog is an instrument room.
 
-The shared identity is dark, celestial, copper-accented and slightly mechanical. V2 adds an analog broadcast-console layer because it is an interactive workspace rather than a presentation page.
+RP V2 is the roleplay control room and character workshop inside that same place.
 
-The implementation must be new. Do not copy legacy Sandbox assets or character art.
+Different products may use different layouts, but they must share the same visual DNA.
 
-## Visual foundation
+## Reuse boundary
 
-Initial token family:
+The clean-room restriction applies to the old Sandbox and old character content. It does **not** prohibit intentionally sharing the Howling Whispers ecosystem design system from Landing and Analog.
+
+It is acceptable and encouraged to reuse, port, consolidate, or faithfully reproduce where technically appropriate:
+
+- core color values and design tokens
+- typography choices
+- spacing and radius conventions
+- panel material treatments
+- border and line treatments
+- background atmosphere
+- celestial details
+- status lamps
+- slider/control styling
+- button interaction language
+- focus treatment
+- motion language
+- responsive design conventions
+
+If a shared design-system package or token module becomes practical later, prefer that over allowing the applications to visually drift apart.
+
+Do not copy old Sandbox assets, old character art, old portraits, old character cards, or legacy Sandbox UI assets.
+
+## Canonical visual foundation
+
+Landing currently establishes the near-black, copper and ivory foundation. Analog extends that into physical instrument controls.
+
+V2 should preserve that exact direction.
+
+Representative token family:
 
 ```css
 :root {
@@ -22,45 +68,79 @@ Initial token family:
   --hw-ink-1: #080809;
   --hw-panel-0: #120d0c;
   --hw-panel-1: #191210;
-  --hw-copper-1: #74462d;
-  --hw-copper-2: #c98752;
-  --hw-copper-3: #e1aa77;
+  --hw-copper-deep: #74462d;
+  --hw-copper: #c98752;
+  --hw-copper-bright: #e1aa77;
   --hw-text: #f4eee8;
   --hw-muted: #968a83;
   --hw-line: rgba(205, 145, 92, 0.23);
 }
 ```
 
-These values establish family resemblance with Landing. V2 should own its own token file and component implementation.
+Exact values should stay synchronized with the canonical pages when practical rather than slowly diverging into slightly different palettes.
+
+## Background and atmosphere
+
+Keep the same visual atmosphere as Landing and Analog:
+
+- near-black base
+- subtle warm radial illumination
+- restrained celestial/star-field detail where appropriate
+- copper highlights instead of bright generic accent colors
+- minimal visual noise behind readable content
+
+RP V2 may be denser than Landing, but it should still feel like entering another room of the same site.
+
+## Typography
+
+Preserve the established two-part typography language:
+
+- Georgia / serif display treatment for major Howling Whispers headings and identity moments
+- readable system/sans-serif typography for controls, RP content and dense information
+- uppercase tracked micro-labels for instrument/control metadata
+
+Do not replace this with a generic dashboard typography stack that changes the character of the product.
 
 ## Material language
 
-Use three levels of surface:
+Use the same physical material treatment seen in Analog:
 
 1. **Room / chassis**
    - near-black
-   - minimal texture
    - low visual noise
+   - subtle warm atmosphere
 
 2. **Instrument panel**
-   - slightly warmer dark surface
+   - warm-black / brown-black surface
    - fine copper border
-   - subtle inset or edge depth
+   - subtle inset/highlight depth
+   - restrained rounding consistent with Analog
 
 3. **Active instrument**
-   - brighter local contrast
+   - increased local contrast
    - illuminated state indicator
-   - tactile response
+   - immediate tactile response
 
-Avoid glossy skeuomorphism and oversized fake screws everywhere.
+Panels should feel related to Analog's synthesizer and DAW surfaces, adapted to RP rather than reinvented.
 
 ## Controls
 
+### Sliders
+
+Factory personality axes and other continuous values should directly follow the established Analog control language:
+
+- dark copper track
+- warm copper hardware-like thumb
+- immediate movement
+- visible focus state
+- accessible keyboard behavior
+- adequate touch target even when the visible track is thin
+
 ### Push buttons
 
-Use for actions such as Send, Stop, Reroll and Commit Branch.
+Use for actions such as Send, Stop, Reroll, Test, Randomize and Commit Branch.
 
-States must be readable without color alone:
+States:
 
 - idle
 - pressed
@@ -73,85 +153,63 @@ Press feedback happens locally on pointer/touch down.
 
 ### Toggle switches
 
-Use only for persistent binary state such as Live Crew auto-join or a generation option.
-
-Switch movement is immediate. Server synchronization follows.
+Use for real persistent binary state, not decoration.
 
 ### Knobs
 
-Use only when continuous adjustment is genuinely useful.
-
-Examples:
-
-- response length
-- creativity / sampling controls when supported by provider
-- audio level if an audio system exists
-
-A knob must also support keyboard and direct numeric adjustment. It must never be the only way to set a precise value.
+Use only when continuous rotary adjustment actually improves the task. Always provide keyboard/direct-value access.
 
 ### Meters
 
-Meters visualize changing state. They are not decoration.
-
-Possible uses:
-
-- generation activity
-- context budget
-- relationship dimensions
-- provider latency / health
-- microphone or audio level if added later
+Meters show changing state such as generation activity, context usage, relationship dimensions or diagnostics. They must not be decorative filler.
 
 ### Status lamps
 
-Small lamps indicate binary or categorical state:
+Use the same lamp language as Analog for states such as:
 
 - connected
 - generating
+- synced
 - character active
-- background sync pending
 - provider available
+- unsaved/local changes
 
-Do not create a wall of meaningless blinking lights.
-
-## Typography
-
-Use a restrained two-family system:
-
-- serif display type for major Howling Whispers identity moments and large section headings
-- highly readable sans-serif for RP content, controls and data
-
-RP prose must not use novelty terminal fonts.
-
-Small instrument labels may use uppercase tracking, but avoid long passages in all caps.
+Do not create meaningless blinking lights.
 
 ## Motion
 
-Motion should feel physical and responsive.
+Landing provides the cinematic side of the identity. Analog provides the tactile side.
 
-Good examples:
+Inside active RP and Factory workflows, favor Analog-style tactile motion:
 
-- switch travel
 - button depression
-- meter needle or bar interpolation
-- drawer motion
-- panel reveal
-- active lamp fade
+- slider movement
+- switch travel
+- meter interpolation
+- panel/drawer reveal
+- lamp activation
 
-Rules:
+Long cinematic transitions belong at major entrances or mode changes, not every interaction.
 
-- local interaction feedback begins immediately
-- prefer transform and opacity animation
-- avoid motion that blocks input
-- avoid long cinematic transitions inside active RP
-- honor `prefers-reduced-motion`
+All local control feedback should begin immediately and honor `prefers-reduced-motion`.
+
+## Product-specific layouts, shared skin
+
+Unified theme does not mean identical page geometry.
+
+- Landing may remain spacious and cinematic.
+- Analog may remain instrument-dense.
+- RP may prioritize a readable conversation core.
+- Factory may resemble a calibration/workbench layout.
+- Timeline may use a branching navigation canvas.
+
+But colors, typography, surfaces, borders, control behavior, motion and atmosphere should make each one unmistakably Howling Whispers.
 
 ## Responsive layout model
 
-Do not scale the desktop control room down. Recompose it.
+Do not shrink desktop layouts. Recompose them while retaining the same theme.
 
 ### Wide desktop
-
-Target behavior:
 
 ```text
 +----------------+----------------------------+----------------+
@@ -166,19 +224,11 @@ Target behavior:
 
 ### Tablet
 
-The RP core remains primary.
-
-Secondary systems move into:
-
-- one collapsible rail when space permits
-- drawers
-- tabbed sheets
+The primary task remains central. Secondary systems become collapsible rails, drawers or tabbed sheets using the same panel styling.
 
 ### Phone
 
-Use one primary content plane.
-
-Suggested structure:
+Use one primary plane with touch-friendly themed controls:
 
 ```text
 +-----------------------------+
@@ -195,42 +245,26 @@ Suggested structure:
 +-----------------------------+
 ```
 
-Secondary tools open as sheets or dedicated in-app views without destroying the active session.
-
-## Input and virtual keyboard
-
-On phones:
-
-- composer must remain visible when practical
-- account for dynamic viewport height
-- avoid fixed elements being hidden behind the keyboard
-- preserve draft text across navigation
-- use safe-area insets
-
-## Hover
-
-Hover is enhancement only.
-
-Anything exposed on hover must also be available through touch and keyboard.
+All essential features must work without hover or horizontal page scrolling.
 
 ## RP readability
 
-The conversation is the most important surface in the product.
+The shared theme must never compromise conversation readability.
 
-Analog styling must never make RP harder to read.
+RP prose uses comfortable line height, sensible measure, clear speaker distinction and selectable text where appropriate.
 
-Use generous line height, sensible width, clear speaker distinction and selectable message text where appropriate.
+The visual system frames the writing. It must not overpower it.
 
-## Character visuals
+## Character visuals and assets
 
-V2 begins with neutral placeholders only.
+V2 begins with fresh neutral placeholders.
 
-No legacy character portraits or old character artwork should appear in the initial UI.
+No legacy Sandbox portraits, old character artwork, character cards, textures, backgrounds or UI assets are carried forward.
 
-When V2 character assets are added later, they should be created or explicitly imported for V2 and tracked as deliberate content additions.
+New V2-specific artwork may be added deliberately later.
 
-## Asset policy
+## Anti-drift rule
 
-Fresh V2 assets should live under a clearly named V2 asset tree and document provenance where needed.
+A change that makes RP V2 look visually unrelated to Landing or Analog is a regression unless the ecosystem design system itself is intentionally being changed across products.
 
-Do not add an automated migration path from an old Sandbox asset directory.
+When unsure, compare the implementation side-by-side with the current Landing and Analog pages before inventing a new visual treatment.
